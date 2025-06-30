@@ -11,13 +11,14 @@ async function getAllTasks(req, res) {
 
 async function createTask(req, res) {
     try {
-        const { title, description } = req.body;
+        const { title, completed } = req.body;
         const result = await pool.query(
-            'INSERT INTO tasks (title, description) VALUES ($1, $2) RETURNING *;',
-            [title, description]
+            'INSERT INTO tasks (title, completed) VALUES ($1, $2) RETURNING *;',
+            [title, completed ?? false]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {
+        console.error(err);
         res.status(500).json({ error: "Internal server error" });
     }
 }
