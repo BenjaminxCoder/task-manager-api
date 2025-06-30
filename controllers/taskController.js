@@ -9,4 +9,17 @@ async function getAllTasks(req, res) {
     }
 }
 
-export { getAllTasks };
+async function createTask(req, res) {
+    try {
+        const { title, description } = req.body;
+        const result = await pool.query(
+            'INSERT INTO tasks (title, description) VALUES ($1, $2) RETURNING *;',
+            [title, description]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+export { getAllTasks, createTask };
