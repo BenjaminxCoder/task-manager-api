@@ -1,5 +1,6 @@
 import express from "express";
 import pool from "./models/db.js";
+import taskRoutes from './routes/taskRoutes.js';
 
 const app = express();
 const port = 3000;
@@ -16,6 +17,8 @@ pool.query("SELECT NOW()", (err, result) => {
 app.get('/health', (req, res) => {
     res.status(200).json({ status: "OK" });
 });
+
+app.use('/tasks', taskRoutes);
 
 app.listen(port, () => {
     console.log(`Health check endpoint available at http://localhost:${port}/health`);
