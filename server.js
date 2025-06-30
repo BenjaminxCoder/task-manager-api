@@ -20,6 +20,7 @@ app.get('/health', (req, res) => {
 
 app.use('/tasks', taskRoutes);
 
+
 app.listen(port, () => {
     console.log(`Health check endpoint available at http://localhost:${port}/health`);
 });
