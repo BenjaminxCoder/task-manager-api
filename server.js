@@ -4,7 +4,7 @@ import taskRoutes from './routes/taskRoutes.js';
 
 const app = express();
 const port = 3000;
-
+app.use(express.json());
 
 pool.query("SELECT NOW()", (err, result) => {
   if (err) {
